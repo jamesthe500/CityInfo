@@ -1,0 +1,11 @@
+c:\users\mrk5605\source\repos\CityInfo\CityInfo.API\bin\Debug\netcoreapp2.0\CityInfo.API.deps.json
+c:\users\mrk5605\source\repos\CityInfo\CityInfo.API\bin\Debug\netcoreapp2.0\CityInfo.API.runtimeconfig.json
+c:\users\mrk5605\source\repos\CityInfo\CityInfo.API\bin\Debug\netcoreapp2.0\CityInfo.API.runtimeconfig.dev.json
+c:\users\mrk5605\source\repos\CityInfo\CityInfo.API\bin\Debug\netcoreapp2.0\CityInfo.API.dll
+c:\users\mrk5605\source\repos\CityInfo\CityInfo.API\bin\Debug\netcoreapp2.0\CityInfo.API.pdb
+c:\users\mrk5605\source\repos\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.0\CityInfo.API.csprojAssemblyReference.cache
+c:\users\mrk5605\source\repos\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.0\CityInfo.API.csproj.CoreCompileInputs.cache
+c:\users\mrk5605\source\repos\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.0\CityInfo.API.AssemblyInfoInputs.cache
+c:\users\mrk5605\source\repos\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.0\CityInfo.API.AssemblyInfo.cs
+c:\users\mrk5605\source\repos\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.0\CityInfo.API.dll
+c:\users\mrk5605\source\repos\CityInfo\CityInfo.API\obj\Debug\netcoreapp2.0\CityInfo.API.pdb
