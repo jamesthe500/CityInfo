@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CityInfo.API.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace CityInfo.API.Controllers
             return Ok(city.PointsOfInterest);
         }
 
-        [HttpGet("{cityId}/pointsofInterest/{id}")]
+        [HttpGet("{cityId}/pointsofInterest/{id}", Name = "GetPointOfInterest")]
         public IActionResult GetPointOfInterest (int cityId, int id)
         {
             var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
@@ -38,6 +39,42 @@ namespace CityInfo.API.Controllers
 
             return Ok(pointOfInterest);
 
+        }
+
+        [HttpPost("{cityId}/pointsofinterest")]
+        public IActionResult CreatePointOfInterest(int cityId, 
+            [FromBody] PointOfInterestForCreationDto pointOfInterest)
+        {
+            // If consumer sends a bad request, send them a 400
+            if(pointOfInterest == null)
+            {
+                return BadRequest();
+            }
+
+            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            // If the consumer is trying to add to a non-existant city return 404
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            // The request needs to be mapped to the point of interest model and id calculated.
+            // This way is problematic. There is an auto-id generator method.
+            var maxPointOfInterestId = CitiesDataStore.Current.Cities.SelectMany(
+                c => c.PointsOfInterest).Max(p => p.Id);
+
+            var finalPointOfInterest = new PointOfInterestDto()
+            {
+                Id = ++maxPointOfInterestId,
+                Name = pointOfInterest.Name,
+                Description = pointOfInterest.Description
+            };
+
+            city.PointsOfInterest.Add(finalPointOfInterest);
+
+            return CreatedAtRoute("GetPointOfInterest",
+                new { cityId, id = finalPointOfInterest.Id},
+                finalPointOfInterest);
         }
     }
 }
