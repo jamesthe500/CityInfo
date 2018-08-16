@@ -51,6 +51,16 @@ namespace CityInfo.API.Controllers
                 return BadRequest();
             }
 
+            if(pointOfInterest.Description == pointOfInterest.Name)
+            {
+                ModelState.AddModelError("Description", "The provided description must be different from the name");
+            }
+
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
             // If the consumer is trying to add to a non-existant city return 404
             if (city == null)
@@ -75,6 +85,47 @@ namespace CityInfo.API.Controllers
             return CreatedAtRoute("GetPointOfInterest",
                 new { cityId, id = finalPointOfInterest.Id},
                 finalPointOfInterest);
+        }
+
+
+        [HttpPut("{cityId}/pointsofinterest/{id}")]
+        public IActionResult UpdatePointOfInterest(int cityId, int id,
+            [FromBody] PointOfInterestForUpdateDto pointOfInterest)
+        {
+            // If consumer sends a bad request, send them a 400
+            if (pointOfInterest == null)
+            {
+                return BadRequest();
+            }
+
+            if (pointOfInterest.Description == pointOfInterest.Name)
+            {
+                ModelState.AddModelError("Description", "The provided description must be different from the name");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            // If the consumer is trying to add to a non-existant city return 404
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            var pointOfInterestFromStore = city.PointsOfInterest.FirstOrDefault(p => p.Id == id);
+
+            if(pointOfInterestFromStore == null)
+            {
+                return NotFound();
+            }
+
+            pointOfInterestFromStore.Name = pointOfInterest.Name;
+            pointOfInterestFromStore.Description = pointOfInterest.Description;
+
+            return NoContent();
         }
     }
 }
